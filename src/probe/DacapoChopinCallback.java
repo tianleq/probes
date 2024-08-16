@@ -22,4 +22,37 @@ public class DacapoChopinCallback extends Callback {
       ProbeMux.cleanup();
     }
   }
+  
+  /**
+   * The workload is about to start issuing requests.
+   *
+   * Some workloads do substantial work prior (e.g. building a
+   * database) prior to issuing requests.  This call brackets
+   * the begining of the request-based behavior.
+   */
+  public void requestsStarting() {
+    if (!isWarmup()) {
+      requests_starting_native();
+    }
+  }
+
+  /**
+   * The workload has finished issuing requests.
+   */
+  public void requestsFinished() {
+
+    if (!isWarmup()) {
+      requests_finished_native();
+    }
+  }
+
+
+  public void requestEnd(int id) {
+    request_finish_native();
+  }
+
+  public native void request_finish_native();
+
+  public native void requests_starting_native();
+  public native void requests_finished_native();
 }

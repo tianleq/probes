@@ -46,9 +46,15 @@ public class DacapoChopinCallback extends Callback {
     }
   }
 
-
   public void requestEnd(int id) {
     request_finish_native();
+  }
+
+  /* Called by server-side code at completion of servicing a request (request-based workloads only) */
+  @Override
+  public void serverTaskEnd() { 
+    /* your code here */ 
+     request_finish_native();
   }
 
   public native void request_finish_native();
